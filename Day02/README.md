@@ -1,73 +1,75 @@
-# Day 01 – Twin Permutations
+## Day 02 – Sum of Digits
 
-## Platform
+### Platform
 Codeforces
 
-## Problem
-A. Twin Permutations
+---
+
+## Problem Overview
+
+For each test case, you are given an integer `n`.  
+Your task is to compute and output the sum of its digits.
 
 ---
 
-## Problem Summary
+## Constraints
 
-You are given a permutation `a` of length `n`.
-
-Your task is to construct another permutation `b` of length `n` such that:
-
-a1 + b1 ≤ a2 + b2 ≤ a3 + b3 ≤ ... ≤ an + bn
-
-It is guaranteed that such a permutation always exists.
-
----
-
-## Key Insight
-
-Since `a` is a permutation of numbers from `1` to `n`, we can construct `b` using:
-
-b[i] = n + 1 - a[i]
-
-For every index `i`:
-
-a[i] + b[i] = n + 1
-
-Thus, all sums become equal. Because the sequence of sums is constant, the required non-decreasing condition is satisfied automatically.
+- 1 ≤ t (number of test cases)  
+- `n` is a non-negative integer  
+- The number of digits in `n` fits within standard integer limits  
 
 ---
 
 ## Approach
 
-1. Read the number of test cases `t`.
-2. For each test case:
-   - Read `n`.
-   - Read permutation `a`.
-   - Construct permutation `b` using `b[i] = n + 1 - a[i]`.
-   - Output permutation `b`.
+To compute the sum of digits of a number:
+
+1. Initialize a variable `ans = 0`
+2. While `n` is greater than 0:
+   - Extract the last digit using `n % 10`
+   - Add it to `ans`
+   - Remove the last digit using integer division `n /= 10`
+3. Output `ans`
+
+This method efficiently processes each digit exactly once.
+
+---
+
+## Algorithm
+
+For each test case:
+
+1. Read integer `n`
+2. Initialize `ans = 0`
+3. While `n > 0`:
+   - `rem = n % 10`
+   - `ans += rem`
+   - `n /= 10`
+4. Print `ans`
 
 ---
 
 ## Implementation (C++)
 
 ```cpp
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
 
-int main()
-{
-    int t; 
-    cin >> t; 
-    while (t--) 
-    {
-        long long n; 
-        cin >> n; 
-        long long a[n]; 
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        long long n;
+        cin >> n;
+        int ans = 0;
 
-        for (int i = 0; i < n; i++) 
-            cin >> a[i];
+        while (n) {
+            int rem = n % 10;
+            ans += rem;
+            n /= 10;
+        }
 
-        for (int i = 0; i < n; i++) 
-            cout << n + 1 - a[i] << " ";
-
-        cout << endl; 
+        cout << ans << endl;
     }
-    return 0; 
+    return 0;
 }
